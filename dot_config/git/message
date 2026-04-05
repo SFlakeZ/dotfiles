@@ -1,0 +1,47 @@
+# <type>[(<scope>)]: <description>
+#   │                   │ 
+#   │                   └─ imperative, present tense;
+#   └─ see types below     no period; max ~72 chars
+#
+# [body]
+#
+# [footer(s)]
+#
+# =======================================================================
+#
+# Types:
+#
+# feat      -> new feature
+# fix       -> bug fix
+# docs      -> documentation only
+# style     -> formatting (no logic change)
+# refactor  -> code change that is neither a fix nor a feature
+# perf      -> performance improvement
+# test      -> adding or updating tests
+# build     -> build system or dependencies
+# ci        -> CI/CD changes
+# chore     -> other (maintenance, tooling, cleanup)
+# revert    -> revert previous commit
+#
+# Append '!' after type/scope to signal a breaking change:
+#   feat(api)!: remove deprecated endpoint
+#
+# ======================================================================
+#
+# Optional body: (describe 'what' changed and 'why' -> not 'how')
+#
+# - explain the context or problem
+# - describe reasoning behind the change
+# - mention alternatives considered, if relevant
+# - wrap at 72 chars
+#
+# ======================================================================
+#
+# Optional footer(s):
+#
+# BREAKING CHANGE: <description>
+# Closes: #123
+# Fixes: #456
+# Refs: #789
+#
+# More information on: https://www.conventionalcommits.org/en/v1.0.0/
