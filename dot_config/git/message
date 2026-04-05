@@ -1,0 +1,39 @@
+# <type>[(optional scope)]: <description>
+#
+# [optional body]
+#
+# [optional footer(s)]
+#
+# =======================================================================
+#
+# Types:
+# feat      -> new feature
+# fix       -> bug fix
+# docs      -> documentation only
+# style     -> formatting (no code change)
+# refactor  -> code change without fixing a bug nor adding a feature
+# perf      -> performance improvement(s)
+# test      -> adding or updating tests
+# build     -> build system or dependencies
+# ci        -> CI/CD changes
+# chore     -> other (maintenance, tooling, cleanup)
+# revert    -> revert previous commit(s)
+#
+# =======================================================================
+#
+# Optional body: (describe the 'what' & 'why', not 'how')
+#
+# - explain the context or problem
+# - describe reasoning behind the change
+# - mention alternatives if relevant
+#
+# =======================================================================
+#
+# Optional footer(s):
+#
+# BREAKING CHANGE: <description>
+# Closes: #123
+# Fixes: #456
+# Refs: #789
+#
+# More information on: https://www.conventionalcommits.org/en/v1.0.0/

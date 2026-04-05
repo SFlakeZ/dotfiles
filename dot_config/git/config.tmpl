@@ -1,0 +1,10 @@
+[user]
+    name = {{ .git_user_name | quote }}
+    email = {{ .git_user_email | quote }}
+
+[commit]
+    template = {{ joinPath .chezmoi.homeDir ".config/git/message" }}
+
+[include]
+    path = {{ joinPath .chezmoi.homeDir ".config/git/aliases" }}
+
