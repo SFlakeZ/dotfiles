@@ -5,6 +5,7 @@
 
 [core]
     autocrlf = input # keep LF, convert CRLF
+    excludesFiles = {{ joinPath .chezmoi.homeDir ".config/git/ignore" }}
 
 [init]
     defaultBranch = main
