@@ -1,10 +1,26 @@
+# https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration
 [user]
-    name = {{ .git_user_name | quote }}
+    name  = {{ .git_user_name | quote }}
     email = {{ .git_user_email | quote }}
+
+[core]
+    autocrlf = input # keep LF, convert CRLF
+
+[init]
+    defaultBranch = main
 
 [commit]
     template = {{ joinPath .chezmoi.homeDir ".config/git/message" }}
 
 [include]
     path = {{ joinPath .chezmoi.homeDir ".config/git/aliases" }}
+
+[fetch]
+    prune = true # remove deleted remote branches locally
+
+[pull]
+    rebase = true # rebase local commits on top of fetched ones
+
+[push]
+    autoSetupRemote = true # auto-set upstream on first push
 
