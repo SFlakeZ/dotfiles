@@ -1,6 +1,6 @@
 
 local is_enabled = require("core.utils").is_enabled("nvim_lint")
-local linters = require("config.linting").linters_by_ft
+local linters = require("core.utils").linters_by_ft()
 
 -- nvim-lint: https://github.com/mfussenegger/nvim-lint
 return {

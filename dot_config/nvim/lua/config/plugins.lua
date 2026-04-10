@@ -21,7 +21,7 @@ return {
 
   -- Requirements: ripgrep
   telescope = { enabled = true },
- 
+
   -- Requirements: git, curl/wget, unzip, tar/gtar, gzip
   mason = { enabled = true, auto_install = true }
 }

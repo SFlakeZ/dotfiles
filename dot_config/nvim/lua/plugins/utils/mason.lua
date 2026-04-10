@@ -1,5 +1,7 @@
 
 local is_enabled = require("core.utils").is_enabled("mason")
+local lsp_servers = require("core.utils").lsp_servers()
+local tools = require("core.utils").mason_tools()
 
 return {
   {
@@ -24,7 +26,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     enabled = is_enabled,
     opts = {
-      ensure_installed = {}
+      ensure_installed = lsp_servers
     }
   },
   {
@@ -32,7 +34,7 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     enabled = is_enabled,
     opts = {
-      ensure_installed = {}
+      ensure_installed = tools
     }
   }
 }
