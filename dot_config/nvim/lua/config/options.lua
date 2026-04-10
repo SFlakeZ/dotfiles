@@ -4,6 +4,8 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 
+vim.o.winborder = "rounded" -- possible values: single, double, solid, shadow, none
+
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -21,13 +23,13 @@ vim.opt.softtabstop = 4
 vim.opt.smartindent = true
 
 vim.diagnostic.config({
-  virtual_text = { prefix = "", spacing = 2 },
+  virtual_text = { prefix = "󰜵", spacing = 2 },
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = "", -- replaces "E"
-      [vim.diagnostic.severity.WARN] = "", -- replaces "E"
-      [vim.diagnostic.severity.HINT] = "", -- replaces "E"
-      [vim.diagnostic.severity.INFO] = "", -- replaces "E"
+      [vim.diagnostic.severity.ERROR] = "", -- replaces "E"
+      [vim.diagnostic.severity.WARN] = "",  -- replaces "W"
+      [vim.diagnostic.severity.HINT] = "",  -- replaces "H"
+      [vim.diagnostic.severity.INFO] = "",   -- replaces "I"
     }
   },
   float = { border = "rounded" }

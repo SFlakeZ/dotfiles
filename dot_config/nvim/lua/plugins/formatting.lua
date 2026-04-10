@@ -1,6 +1,6 @@
 
 local is_enabled = require("core.utils").is_enabled("conform")
-local formatters = require("config.formatting").formatters_by_ft
+local formatters = require("core.utils").formatters_by_ft()
 
 -- conform: https://github.com/stevearc/conform.nvim
 return {
@@ -10,12 +10,12 @@ return {
     formatters_by_ft = formatters
   },
   config = function()
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "*",
-      callback = function(args)
-        require("conform").format({ bufnr = args.buf })
-      end
-      })
+    require("conform").setup({
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = "fallback"
+      }
+    })
   end
 }
 
