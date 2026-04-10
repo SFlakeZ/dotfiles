@@ -1,2 +1,8 @@
+# Documentation: https://www.chezmoi.io/reference/special-files/chezmoiignore/
 README.md
+
+# mac specific
+{{- if ne .chezmoi.os "darwin" }}
+dot_config/aerospace
+{{- end }}
 
