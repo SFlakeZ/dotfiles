@@ -1,4 +1,3 @@
-
 local is_enabled = require("core.utils").is_enabled("conform")
 local formatters = require("core.utils").formatters_by_ft()
 
@@ -7,15 +6,12 @@ return {
   "stevearc/conform.nvim",
   enabled = is_enabled,
   opts = {
-    formatters_by_ft = formatters
+    formatters_by_ft = formatters,
+    -- Set default options
+    default_format_opts = {
+      lsp_format = "fallback",
+    },
+    -- Set up format-on-save
+    format_on_save = { timeout_ms = 500 },
   },
-  config = function()
-    require("conform").setup({
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_format = "fallback"
-      }
-    })
-  end
 }
-
