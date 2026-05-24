@@ -17,6 +17,7 @@ return {
   lualine = { enabled = true },
 
   -- Utils
+  autopairs = { enabled = true },
   neo_tree = { enabled = true },
 
   -- Requirements: ripgrep
