@@ -1,4 +1,3 @@
-
 local is_enabled = require("core.utils").is_enabled("blink_cmp")
 
 -- blink.cmp: https://github.com/saghen/blink.cmp
@@ -7,8 +6,17 @@ return {
   "saghen/blink.cmp",
   version = "1.*",
   enabled = is_enabled,
+  -- LuaSnip: https://github.com/L3MON4D3/LuaSnip
+  dependencies = {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+  },
 
-  ---@module 'blink.cmp'
+  ---@module "blink.cmp"
   ---@type blink.cmp.Config
   opts = {
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
@@ -28,7 +36,7 @@ return {
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
-      nerd_font_variant = "mono"
+      nerd_font_variant = "mono",
     },
 
     -- (Default) Only show the documentation popup when manually triggered
@@ -37,8 +45,10 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to 'opts_extended'
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" }
+      default = { "lsp", "path", "snippets", "buffer" },
     },
+
+    snippets = { preset = "luasnip" },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
     -- You may use a lua implementation instead by using 'implementation = "lua"' or
@@ -46,8 +56,7 @@ return {
     -- by using 'implementation = "prefer_rust"'
     --
     -- See the fuzzy documentation for more information
-    fuzzy = { implementation = "prefer_rust_with_warning" }
+    fuzzy = { implementation = "prefer_rust_with_warning" },
   },
-  opts_extend = { "sources.default" }
+  opts_extend = { "sources.default" },
 }
-
