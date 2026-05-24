@@ -1,4 +1,3 @@
-
 -- General
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -27,11 +26,10 @@ vim.diagnostic.config({
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "", -- replaces "E"
-      [vim.diagnostic.severity.WARN] = "",  -- replaces "W"
-      [vim.diagnostic.severity.HINT] = "",  -- replaces "H"
-      [vim.diagnostic.severity.INFO] = "",   -- replaces "I"
-    }
+      [vim.diagnostic.severity.WARN] = "", -- replaces "W"
+      [vim.diagnostic.severity.HINT] = "", -- replaces "H"
+      [vim.diagnostic.severity.INFO] = "", -- replaces "I"
+    },
   },
-  float = { border = "rounded" }
+  float = { border = "rounded" },
 })
-

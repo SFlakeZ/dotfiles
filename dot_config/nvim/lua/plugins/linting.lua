@@ -1,4 +1,3 @@
-
 local is_enabled = require("core.utils").is_enabled("nvim_lint")
 local linters = require("core.utils").linters_by_ft()
 
@@ -20,8 +19,7 @@ return {
         -- You can call 'try_lint' with a linter name or a list of names to always
         -- run specific linters, independet of the 'linters_by_ft' configuration
         -- require("lint").try_lint("cspell")
-      end
+      end,
     })
-  end
+  end,
 }
-

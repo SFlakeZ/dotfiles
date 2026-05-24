@@ -1,4 +1,3 @@
-
 -- Docs: https://lazy.folke.io/installation
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -23,12 +22,11 @@ require("lazy").setup({
     -- import your plugins
     { import = "plugins" },
     { import = "plugins.ui" },
-    { import = "plugins.utils" }
+    { import = "plugins.utils" },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "catppuccin-mocha", "habamax" } },
   -- automatically check for plugin updates
-  checker = { enabled = true }
+  checker = { enabled = true },
 })
-

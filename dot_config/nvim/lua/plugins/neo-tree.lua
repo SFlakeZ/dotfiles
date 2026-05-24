@@ -1,4 +1,3 @@
-
 local is_enabled = require("core.utils").is_enabled("neo_tree")
 
 -- Neo-tree: https://github.com/nvim-neo-tree/neo-tree.nvim
@@ -17,9 +16,8 @@ return {
       follow_current_file = { enabled = true },
       filtered_items = {
         visible = true,
-        hide_dotfiles = false
-      }
-    }
-  }
+        hide_dotfiles = false,
+      },
+    },
+  },
 }
-

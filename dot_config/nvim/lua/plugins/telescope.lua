@@ -1,4 +1,3 @@
-
 local is_enabled = require("core.utils").is_enabled("telescope")
 
 -- Telescope: https://github.com/nvim-telescope/telescope.nvim
@@ -8,7 +7,6 @@ return {
   enabled = is_enabled,
   dependencies = {
     "nvim-lua/plenary.nvim",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
-  }
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  },
 }
-
