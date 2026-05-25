@@ -1,4 +1,3 @@
-
 local M = {}
 local plugins = require("config.plugins")
 
@@ -26,7 +25,7 @@ end
 function M.linters_by_ft()
   local result = {}
   for ft, cfg in pairs(tools_by_ft) do
-    if cfg.linters then
+    if cfg.linters and #cfg.linters > 0 then
       result[ft] = cfg.linters
     end
   end
@@ -36,7 +35,7 @@ end
 function M.formatters_by_ft()
   local result = {}
   for ft, cfg in pairs(tools_by_ft) do
-    if cfg.formatters then
+    if cfg.formatters and #cfg.formatters > 0 then
       result[ft] = cfg.formatters
     end
   end
@@ -47,7 +46,7 @@ function M.mason_tools()
   local added, result = {}, {}
   for _, cfg in pairs(tools_by_ft) do
     if cfg.mason_install then
-      for _, list in ipairs ({ cfg.formatters or {}, cfg.linters or {} }) do
+      for _, list in ipairs({ cfg.formatters or {}, cfg.linters or {} }) do
         for _, tool in ipairs(list) do
           local mason_pkg = M.mason_pkg_aliases[tool] or tool
           if not added[mason_pkg] then
@@ -63,8 +62,7 @@ end
 
 -- Mason Aliases
 M.mason_pkg_aliases = {
-  ruff_format = "ruff"
+  ruff_format = "ruff",
 }
 
 return M
-

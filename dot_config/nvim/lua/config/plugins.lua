@@ -1,4 +1,3 @@
-
 return {
   -- Completion
   blink_cmp = { enabled = true },
@@ -17,12 +16,13 @@ return {
   lualine = { enabled = true },
 
   -- Utils
+  autopairs = { enabled = true },
+  lazydev = { enabled = true },
   neo_tree = { enabled = true },
 
   -- Requirements: ripgrep
   telescope = { enabled = true },
 
   -- Requirements: git, curl/wget, unzip, tar/gtar, gzip
-  mason = { enabled = true, auto_install = true }
+  mason = { enabled = true, auto_install = true },
 }
-
