@@ -1,5 +1,5 @@
 local is_enabled = require("core.utils").is_enabled("mason")
-local lsp_servers = require("core.utils").lsp_servers()
+local lsp_servers = require("core.utils").mason_lsp_servers()
 local tools = require("core.utils").mason_tools()
 
 return {

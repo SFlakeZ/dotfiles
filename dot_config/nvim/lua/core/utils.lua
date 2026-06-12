@@ -11,10 +11,21 @@ end
 
 local tools_by_ft = require("config.tools").by_ft
 
-function M.lsp_servers()
+function M.mason_lsp_servers()
   local added, result = {}, {}
   for _, cfg in pairs(tools_by_ft) do
     if cfg.lsp and not added[cfg.lsp] and cfg.mason_install then
+      added[cfg.lsp] = true
+      table.insert(result, cfg.lsp)
+    end
+  end
+  return result
+end
+
+function M.lsp_servers()
+  local added, result = {}, {}
+  for _, cfg in pairs(tools_by_ft) do
+    if cfg.lsp and not added[cfg.lsp] then
       added[cfg.lsp] = true
       table.insert(result, cfg.lsp)
     end
