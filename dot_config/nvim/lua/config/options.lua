@@ -16,10 +16,33 @@ vim.opt.termguicolors = true
 
 -- Indentation
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 vim.opt.smartindent = true
+
+-- 4 space languages
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp", "python", "rust", "toml" },
+  callback = function()
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+  end,
+})
+
+-- Tab-based languages
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "go", "make" },
+  callback = function()
+    vim.opt_local.expandtab = false
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+  end,
+})
+
+vim.opt.signcolumn = "yes" -- prevents layout shift
 
 vim.diagnostic.config({
   virtual_text = { prefix = "󰜵", spacing = 2 },
