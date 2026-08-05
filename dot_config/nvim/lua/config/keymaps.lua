@@ -53,3 +53,9 @@ vim.keymap.set("n", "<leader>h", function()
 end, { desc = "Toggle inlay hints" })
 
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
+
+if utils.is_enabled("conform") then
+  vim.keymap.set({ "n", "v" }, "<leader>cf", function()
+    require("conform").format({ async = true, lsp_format = "fallback" })
+  end, { desc = "Format buffer/selection" })
+end
