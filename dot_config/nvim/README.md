@@ -1,4 +1,4 @@
-[← dotfiles](../README.md)
+[← dotfiles](../../README.md)
 
 # Neovim Configuration
 
