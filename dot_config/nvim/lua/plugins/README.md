@@ -8,11 +8,10 @@ into three categories. Each file returns exactly one plugin spec (see the
 enabled/disabled flag from [config/plugins.lua](../config/README.md#pluginslua)
 via `require("core.utils").is_enabled("<name>")`.
 
-- **lsp** — language intelligence: LSP, completion, formatting, linting,
+- **lsp**: language servers, completion, formatting, linting,
   treesitter, tool installation
-- **editor** — editing & navigation: file explorer, fuzzy finder, git
-  signs, editing QoL
-- **ui** — visuals: colorscheme, statusline
+- **editor**: file explorer, fuzzy finder, editing QoL, git signs
+- **ui**: colorscheme, statusline
 
 ## lsp
 
@@ -26,10 +25,9 @@ via `require("core.utils").is_enabled("<name>")`.
 | `treesitter.lua` | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting and indentation |
 | `lazydev.lua` | [lazydev.nvim](https://github.com/folke/lazydev.nvim) | Neovim API type annotations, loads on `lua` files only |
 
-`mason.lua` is the one intentional exception to the one-file-one-plugin
-rule: mason.nvim, mason-lspconfig.nvim and mason-tool-installer.nvim only
-make sense together as a single toolchain-installation system, so they
-stay in one file.
+`mason.lua` is the one exception to the one-file-one-plugin rule: it
+groups mason.nvim, mason-lspconfig.nvim and mason-tool-installer.nvim
+in a single file.
 
 ## editor
 

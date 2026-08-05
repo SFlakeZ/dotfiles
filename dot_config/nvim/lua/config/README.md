@@ -15,7 +15,7 @@ signs, virtual text, rounded floating windows).
 
 ## keymaps.lua
 
-All custom keybindings live here — nothing plugin-specific is bound
+All custom keybindings live here. Nothing plugin-specific is bound
 outside this file. Keymaps gated behind a plugin flag only apply when
 that plugin is enabled in [plugins.lua](#pluginslua).
 
@@ -38,8 +38,8 @@ that plugin is enabled in [plugins.lua](#pluginslua).
 
 Plugin-internal default keymaps (e.g. blink.cmp's completion menu, or
 Neo-tree's in-buffer navigation) are intentionally **not** documented
-here — they're covered by the plugin's own docs, linked from
-[lua/plugins/README.md](../plugins/README.md), and basic Vim/Neovim
+here. They're covered by the plugin's own docs, linked from
+[lua/plugins/README.md](../plugins/README.md); basic Vim/Neovim
 knowledge is assumed.
 
 ## plugins.lua
@@ -55,7 +55,7 @@ return {
 ```
 
 Every plugin spec and every gated keymap reads its flag via
-`require("core.utils").is_enabled("<name>")` — a plugin is treated as
+`require("core.utils").is_enabled("<name>")`. A plugin is treated as
 enabled if it's missing from this table entirely, so an entry is only
 needed to turn something *off*.
 

@@ -33,30 +33,23 @@ bootstrap), `config.options` (editor settings) and `config.keymaps`
 
 ### Neovim
 
-- Neovim >= 0.12
-- On Ubuntu, the apt package is usually too old — use the
-  [neovim-ppa/unstable](https://launchpad.net/~neovim-ppa/+archive/ubuntu/unstable)
-  PPA or the official release tarball from
-  [neovim/neovim releases](https://github.com/neovim/neovim/releases).
+Neovim >= 0.12.
 
 ### System dependencies
 
-Verified against the requirements listed by each plugin's own docs
-(mason.nvim, nvim-treesitter, telescope-fzf-native.nvim), not just
-inferred from this repo's comments — kept here so the setup is
-reproducible (e.g. in a devcontainer).
+Required by lazy.nvim, Mason, Treesitter and Telescope's fzf-native build:
 
-| Tool | Needed for | Ubuntu package(s) |
+| Tool | Needed for | Package(s) |
 |---|---|---|
 | git, curl, unzip, tar, gzip | lazy.nvim bootstrap, Mason & Treesitter downloads (also mason.nvim's own requirements) | `git curl unzip tar gzip` |
-| C compiler + make | Treesitter parser builds (`:TSUpdate`), telescope-fzf-native.nvim build — **no `fzf` binary needed** | `build-essential` |
+| C compiler + make | Treesitter parser builds (`:TSUpdate`) and telescope-fzf-native.nvim build (no `fzf` binary needed) | e.g. `build-essential`, `base-devel` |
 | ripgrep | Telescope `live_grep` | `ripgrep` |
-| tree-sitter-cli | Building Treesitter parsers without a committed `parser.c` — install via a package manager, **not npm** | `tree-sitter-cli` (Ubuntu ≥ 24.04) or `cargo install --locked tree-sitter-cli` |
-| man-db, manpages-dev | `<leader>fm` (Telescope man pages) | `man-db manpages-dev` |
-| Node.js + npm | Most Mason packages: html, cssls, ts_ls, vue_ls, eslint_d, prettier, yamlls, jsonls, dockerls, bashls, basedpyright, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions) or nvm — not the outdated apt package |
+| tree-sitter-cli | Building Treesitter parsers without a committed `parser.c`; install via your package manager, not npm | `tree-sitter-cli` or `cargo install --locked tree-sitter-cli` |
+| man-db, man-pages | `<leader>fm` (Telescope man pages) | `man-db man-pages` |
+| Node.js + npm | Most Mason packages: html, cssls, ts_ls, vue_ls, eslint_d, prettier, yamlls, jsonls, dockerls, bashls, basedpyright, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions), nvm, or your package manager |
 | Python3 + pip/pipx | `clang-format` (Mason package) | `python3 python3-pip pipx` |
-| Go toolchain | `gopls`, `gofumpt` — managed with `go install`, not Mason (see [tools.lua](./lua/config/tools.lua)) | official [Go tarball](https://go.dev/dl/) |
-| Rust toolchain (rustup) | `rust_analyzer`, `rustfmt` — managed with rustup, not Mason | [rustup.rs](https://rustup.rs) |
+| Go toolchain | `gopls`, `gofumpt`; managed with `go install`, not Mason (see [tools.lua](./lua/config/tools.lua)) | official [Go tarball](https://go.dev/dl/) or package manager |
+| Rust toolchain (rustup) | `rust_analyzer`, `rustfmt`; managed with rustup, not Mason | [rustup.rs](https://rustup.rs) |
 
 Optional: a [Nerd Font](https://www.nerdfonts.com/) installed in your
 *terminal* (not the container) for the icons used by lualine and
@@ -98,13 +91,13 @@ All custom keybindings live in a single file,
 [keymaps.lua](./lua/config/keymaps.lua). See
 [lua/config/README.md](./lua/config/README.md#keymapslua) for the full
 table. Plugin-internal default keymaps (e.g. blink.cmp's completion menu)
-are not documented here — check the plugin's own repo, linked from
+are not documented here. Check the plugin's own repo, linked from
 [lua/plugins/README.md](./lua/plugins/README.md).
 
 ## See also
 
-- [lua/config/README.md](./lua/config/README.md) — options, keymaps, the
+- [lua/config/README.md](./lua/config/README.md): options, keymaps, the
   plugin toggle system and the per-language tooling table
-- [lua/plugins/README.md](./lua/plugins/README.md) — plugin catalog by
+- [lua/plugins/README.md](./lua/plugins/README.md): plugin catalog by
   category, with links to every upstream repo
 
