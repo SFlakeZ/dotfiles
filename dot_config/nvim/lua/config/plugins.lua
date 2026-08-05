@@ -20,6 +20,7 @@ return {
   gitsigns = { enabled = true },
   lazydev = { enabled = true },
   neo_tree = { enabled = true },
+  render_markdown = { enabled = true },
 
   -- Requirements: ripgrep
   telescope = { enabled = true },
