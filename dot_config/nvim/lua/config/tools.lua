@@ -20,7 +20,7 @@ M.by_ft = {
   c = {
     mason_install = true,
     lsp = "clangd",
-    linters = {}, -- provided by lsp (clang-tidy)
+    linters = {},
     formatters = { "clang-format" },
   },
   lua = {
@@ -30,7 +30,7 @@ M.by_ft = {
     formatters = { "stylua" },
   },
   rust = {
-    mason_install = false,
+    mason_install = false, -- managed with rustup
     lsp = "rust_analyzer",
     linters = {},
     formatters = { "rustfmt" },
@@ -58,6 +58,36 @@ M.by_ft = {
     lsp = "vue_ls",
     linters = { "eslint_d" },
     formatters = { "prettier" },
+  },
+  go = {
+    mason_install = false, -- managed with go install
+    lsp = "gopls",
+    linters = {},
+    formatters = { "gofumpt" },
+  },
+  yaml = {
+    mason_install = true,
+    lsp = "yamlls",
+    linters = {},
+    formatters = { "prettier" },
+  },
+  json = {
+    mason_install = true,
+    lsp = "jsonls",
+    linters = {},
+    formatters = { "prettier" },
+  },
+  dockerfile = {
+    mason_install = true,
+    lsp = "dockerls",
+    linters = {},
+    formatters = {},
+  },
+  sh = {
+    mason_install = true,
+    lsp = "bashls",
+    linters = {},
+    formatters = { "shfmt" },
   },
 }
 

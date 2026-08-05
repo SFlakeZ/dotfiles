@@ -9,7 +9,7 @@ return {
   nvim_lint = { enabled = true },
 
   -- Syntax highlighting
-  -- Requirements: tar, curl, tree-sitter-cli
+  -- Requirements: tar, curl, a C compiler, tree-sitter-cli (apt/cargo — not npm)
   treesitter = { enabled = true },
 
   -- UI
@@ -20,10 +20,11 @@ return {
   gitsigns = { enabled = true },
   lazydev = { enabled = true },
   neo_tree = { enabled = true },
+  render_markdown = { enabled = true },
 
-  -- Requirements: ripgrep
+  -- Requirements: ripgrep; fzf-native needs a C compiler + make (no fzf binary needed)
   telescope = { enabled = true },
 
   -- Requirements: git, curl/wget, unzip, tar/gtar, gzip
-  mason = { enabled = true, auto_install = true },
+  mason = { enabled = true },
 }
