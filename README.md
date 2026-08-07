@@ -6,6 +6,7 @@ My dotfiles are managed with [chezmoi](https://github.com/twpayne/chezmoi)!
 - `.chezmoiignore` to ignore files that should not be applied using `chezmoi apply`
 - [git](https://git-scm.com) configuration
 - [nvim](./dot_config/nvim/README.md) configuration
+- [tmux](./dot_config/tmux/README.md) configuration
 
 ### Structure:
 
@@ -18,7 +19,8 @@ My dotfiles are managed with [chezmoi](https://github.com/twpayne/chezmoi)!
 │   │   ├── config.tmpl
 │   │   ├── ignore
 │   │   └── message
-│   └─── nvim
+│   ├── nvim
+│   └── tmux
 └── README.md
 ```
 
