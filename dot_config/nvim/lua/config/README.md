@@ -2,126 +2,178 @@
 
 # lua/config
 
-Non-plugin-manager configuration: editor options, keymaps, the plugin
-enable/disable switchboard, and the per-language tooling registry.
+Everything that is not a plugin spec: editor options, filetype detection,
+keymaps, the plugin switchboard and the per-language tool registry.
 
 ## options.lua
 
 Editor settings: line numbers (relative + absolute), cursorline, rounded
-window borders, case-insensitive/smart search, 2-space indentation by
-default with per-filetype overrides (4 spaces for `c`, `cpp`, `python`,
-`rust`, `toml`; tabs for `go`, `make`), and diagnostic display (custom
-signs, virtual text, rounded floating windows).
+window borders, smart case search, 2-space indentation with per-filetype
+overrides (4 spaces for `c`, `cpp`, `python`, `rust`, `toml`; tabs for
+`go`, `make`) and diagnostics (custom signs, virtual text, rounded float).
+After `]d`/`[d` the diagnostic float opens automatically.
 
-Inline diagnostics (virtual text) are on by default; flip the
-`diagnostics_virtual_text` local at the top of the `vim.diagnostic.config()`
-call to `false` if you'd rather rely on signs + the floating window only
-(can also be toggled at runtime, see `<leader>d` below). `]d`/`[d`
-additionally auto-open the diagnostic float after jumping (via
-`jump.on_jump`), same idea as hovering with `K`.
+## filetypes.lua
+
+Filetypes neovim does not detect on its own:
+
+| Files | Filetype |
+|---|---|
+| `compose*.yml`, `docker-compose*.yml` | `yaml.docker-compose` |
+| `playbooks/*.yml`, `roles/*/tasks/*.yml`, `roles/*/handlers/*.yml` | `yaml.ansible` |
+| `templates/*.yaml`, `templates/*.tpl` inside a chart | `helm` |
+| `values*.yaml` inside a chart | `yaml.helm-values` |
+| `*.j2`, `*.jinja2` | `jinja` |
+| `*.container`, `*.volume`, `*.network`, `*.kube`, `*.image` (podman quadlets) | `systemd` |
+
+`Containerfile` is already detected as `dockerfile`. Anything else can be
+set with a modeline, e.g. `# vim: ft=yaml.ansible`.
 
 ## keymaps.lua
 
-All custom keybindings live here. Nothing plugin-specific is bound
-outside this file. Keymaps gated behind a plugin flag only apply when
-that plugin is enabled in [plugins.lua](#pluginslua).
+All custom keybindings live here. Keymaps for a plugin are only set when
+that plugin is enabled in [plugins.lua](#pluginslua). Press `<leader>`
+and wait to see them in which-key.
 
-| Mode | Keys | Action | Requires |
-|---|---|---|---|
-| n | `<ESC>` | Clear search highlight | — |
-| n | `<leader>n` | Toggle Neo-tree (filesystem, left) | `neo_tree` |
-| n | `<leader>ff` | Find files | `telescope` |
-| n | `<leader>fg` | Live grep (needs [ripgrep](https://github.com/BurntSushi/ripgrep)) | `telescope` |
-| n | `<leader>fb` | List open buffers | `telescope` |
-| n | `<leader>fh` | Search help tags | `telescope` |
-| n | `<leader>fm` | List man pages (sections 2/3/7 for C/C++) | `telescope` |
-| n | `gd` | Go to definition | LSP always; via Telescope if `telescope` enabled |
-| n | `gr` | List references | LSP always; via Telescope if `telescope` enabled |
-| n | `gi` | Go to implementation | LSP always; via Telescope if `telescope` enabled |
-| n | `gy` | Go to type definition | LSP always; via Telescope if `telescope` enabled |
-| n | `<leader>h` | Toggle inlay hints | — |
-| n | `<leader>d` | Toggle inline diagnostics (virtual text) | — |
-| n | `<leader>e` | Show diagnostic float | — |
-| n | `<leader>ca` | Code actions | — |
-| n, v | `<leader>cf` | Format buffer/selection | `conform` |
-
-Plugin-internal default keymaps (e.g. blink.cmp's completion menu, or
-Neo-tree's in-buffer navigation) are intentionally **not** documented
-here. They're covered by the plugin's own docs, linked from
-[lua/plugins/README.md](../plugins/README.md); basic Vim/Neovim
-knowledge is assumed.
-
-Neovim's own default mappings (see `:h vim.lsp.buf` and `:h ]d-default`)
-are **not** redefined here either, but are worth knowing about since they
-cover diagnostics directly:
+### Find (telescope)
 
 | Keys | Action |
 |---|---|
-| `]d` / `[d` | Jump to next/previous diagnostic (auto-opens the float, see `options.lua`) |
-| `]D` / `[D` | Jump to last/first diagnostic |
-| `<C-w>d` | Show the diagnostic under the cursor in a floating window (prefix key: press+release `<C-w>`, *then* `d` without Ctrl — not a chord; use `<leader>e` above if that's confusing) |
+| `<leader>ff` | Find files |
+| `<leader>fg` | Live grep (needs ripgrep) |
+| `<leader>fw` | Grep word under cursor |
+| `<leader>fb` | Buffers |
+| `<leader>fo` | Recent files |
+| `<leader>fr` | Resume last picker |
+| `<leader>fd` | Diagnostics |
+| `<leader>fs` | Git status |
+| `<leader>fc` | Commits of the current buffer |
+| `<leader>fh` | Help tags |
+| `<leader>fk` | Keymaps |
+| `<leader>fm` | Man pages (sections 2/3/7 for C/C++) |
+
+### LSP and code
+
+| Keys | Action |
+|---|---|
+| `gd` | Go to definition |
+| `grr` | References |
+| `gri` | Implementations |
+| `grt`, `gy` | Type definition |
+| `grn` | Rename (neovim default) |
+| `gra` | Code action (neovim default) |
+| `<leader>ca` | Code action |
+| `<leader>cf` | Format buffer/selection |
+| `<leader>cl` | Lint buffer |
+| `<leader>e` | Diagnostic float |
+
+With telescope disabled `grr`/`gri`/`grt` fall back to the neovim
+defaults.
+
+### Git (gitsigns, diffview)
+
+| Keys | Action |
+|---|---|
+| `]h` / `[h` | Next/previous hunk |
+| `<leader>gs` | Stage/unstage hunk (or selection in visual mode) |
+| `<leader>gr` | Reset hunk (or selection) |
+| `<leader>gS` / `<leader>gR` | Stage/reset buffer |
+| `<leader>gp` | Preview hunk inline |
+| `<leader>gb` | Blame line |
+| `<leader>gB` | Blame buffer |
+| `<leader>gd` | Diff against index |
+| `<leader>gq` | All hunks of the repo to quickfix |
+| `ih` | Hunk text object (`dih`, `vih`, ...) |
+| `<leader>gv` | Toggle diffview (all changes, merge conflicts) |
+| `<leader>gh` | File history (selection history in visual mode) |
+| `<leader>gH` | Branch history |
+
+### Toggles
+
+| Keys | Action |
+|---|---|
+| `<leader>uf` / `<leader>uF` | Format on save (global / buffer) |
+| `<leader>ul` | Lint on save |
+| `<leader>ud` | Inline diagnostics |
+| `<leader>uh` | Inlay hints |
+| `<leader>ub` | Git line blame |
+
+### Other
+
+| Keys | Action |
+|---|---|
+| `<ESC>` | Clear search highlight |
+| `<leader>n` | Toggle neo-tree |
+
+Plugin-internal keymaps (blink.cmp menu, neo-tree, diffview panels) are
+documented in the plugins' own repos, linked from
+[lua/plugins/README.md](../plugins/README.md).
+
+## Commands
+
+| Command | Action |
+|---|---|
+| `:FormatToggle[!]` | Toggle format on save, `!` for the current buffer only |
+| `:FormatEnable[!]`, `:FormatDisable[!]` | Same, but explicit |
+| `:FormatInfo` | Format on save state and formatters of the buffer |
+| `:Lint` | Run linters for the buffer |
+| `:LintToggle` | Toggle lint on save (clears lint diagnostics when off) |
 
 ## plugins.lua
 
-A flat enable/disable switchboard, keyed by an internal short name (e.g.
-`telescope`, `mason`, `gitsigns`):
+A flat switchboard keyed by a short name. Every plugin spec and every
+plugin keymap reads its flag via `require("core.utils").is_enabled("<name>")`.
+A plugin missing from the table counts as enabled.
 
-```lua
-return {
-  telescope = { enabled = true },
-  -- ...
-}
-```
+Some entries carry options, read via `require("core.utils").option()`:
 
-Every plugin spec and every gated keymap reads its flag via
-`require("core.utils").is_enabled("<name>")`. A plugin is treated as
-enabled if it's missing from this table entirely, so an entry is only
-needed to turn something *off*.
+| Option | Default | Effect |
+|---|---|---|
+| `conform.format_on_save` | `false` | Format on save. Off because projects without a shared formatter end up with unrelated diffs |
+| `nvim_lint.lint_on_save` | `true` | Run linters after saving |
 
 ## tools.lua
 
-The single source of truth for per-language tooling, consumed by
-`lsp.lua`, `formatting.lua`, `linting.lua` and `mason.lua` via helpers in
-`core/utils.lua`. `lsp` is a list — most filetypes need exactly one server,
-but a filetype can declare several LSP clients that attach to the same
-buffer (see `vue` below).
+Per-language tooling, consumed by `lsp.lua`, `formatting.lua`,
+`linting.lua` and `mason.lua` through helpers in `core/utils.lua`.
 
-| Filetype | LSP | Linters | Formatters | Mason-installed |
+- `lsp` is a list, a filetype can have several clients (e.g. `vue`)
+- `tools` are extra mason packages an LSP calls itself (e.g. shellcheck)
+- `mason_install = false` means the tools are installed some other way
+
+| Filetype | LSP | Linters | Formatters | Mason |
 |---|---|---|---|---|
-| python | basedpyright | — | ruff_format | yes |
-| lua | lua_ls | — | stylua | yes |
-| perl | perlnavigator | — | — | no |
-| rust | rust_analyzer | — | rustfmt | no (rustup) |
-| go | gopls | — | gofumpt | no (go install) |
+| python | basedpyright | - | ruff_format | yes |
+| lua | lua_ls | - | stylua | yes |
+| perl | perlnavigator | - | - | no |
+| rust | rust_analyzer (clippy) | - | rustfmt | no (rustup) |
+| go | gopls | - | gofumpt | no (go install) |
+| ruby | ruby_lsp | rubocop via LSP | rubocop via LSP | no (bundle) |
+| c, cpp | clangd | - | clang-format | yes |
+| java | jdtls | - | google-java-format | yes |
+| kotlin | kotlin_lsp | - | ktlint | yes |
 | html | html, emmet_language_server, tailwindcss | eslint_d | prettier | yes |
 | css | cssls, emmet_language_server, tailwindcss | eslint_d | prettier | yes |
-| javascript | vtsls | eslint_d | prettier | yes |
-| typescript | vtsls | eslint_d | prettier | yes |
+| javascript, typescript, jsx, tsx | vtsls | eslint_d | prettier | yes |
 | vue | vue_ls, vtsls, emmet_language_server, tailwindcss | eslint_d | prettier | yes |
-| java | jdtls | — | google-java-format | yes |
-| kotlin | kotlin_lsp | — | ktlint | yes |
-| yaml | yamlls | — | prettier | yes |
-| json | jsonls | — | prettier | yes |
-| toml | taplo | — | — (via LSP) | yes |
-| dockerfile | dockerls | — | — | yes |
-| sh | bashls | — | shfmt | yes |
-| c | clangd | — | clang-format | yes |
-| cpp | clangd | — | clang-format | yes |
+| yaml | yamlls (kubernetes schema) | - | prettier | yes |
+| json | jsonls | - | prettier | yes |
+| toml | taplo | - | taplo via LSP | yes |
+| markdown | marksman | - | prettier | yes |
+| sh | bashls (+ shellcheck) | - | shfmt | yes |
+| dockerfile, compose | docker_language_server | hadolint | - | yes |
+| helm | helm_ls | - | - | yes |
+| ansible | ansiblels (+ ansible-lint) | - | - | yes |
+| jinja | jinja_lsp | - | - | yes |
+| systemd (quadlets) | systemd_lsp | - | - | yes |
 
-`typescript` aliases the `javascript` entry and `cpp` aliases the `c`
-entry (same LSP/linter/formatter config).
+Notes:
 
-`vue` needs several LSP clients on the same buffer: `vue_ls` only handles
-templates/styles in its "hybrid mode", so `vtsls` (with the
-`@vue/typescript-plugin`, wired up in `lsp.lua`) provides TypeScript
-support — hover, diagnostics, go-to-definition — inside `.vue` files.
-`emmet_language_server` adds Emmet abbreviation expansion and
-`tailwindcss` adds Tailwind class completion/hover; both also attach to
-`html`/`css` for the same reason. See
-https://github.com/vuejs/language-tools/wiki/Neovim.
-
-`rust_analyzer` is configured (in `lsp.lua`) to run Clippy instead of plain
-`cargo check` for diagnostics on save (`rust-analyzer.check.command`).
-
-`toml` has no dedicated formatter entry — `taplo` provides formatting via
-its own LSP implementation, picked up by conform's `lsp_format = "fallback"`.
+- `vue_ls` only covers template and style, `vtsls` provides TypeScript in
+  `.vue` files through `@vue/typescript-plugin` (set up in `lsp.lua`), see
+  the [vue wiki](https://github.com/vuejs/language-tools/wiki/Neovim)
+- yamlls applies the kubernetes schema to `k8s/`, `kubernetes/`,
+  `manifests/` and `*.k8s.yaml`; other files can use a modeline:
+  `# yaml-language-server: $schema=<url>`
+- formatting without a formatter entry falls back to the LSP
+  (`lsp_format = "fallback"`)

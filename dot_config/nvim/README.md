@@ -15,19 +15,21 @@ An opinionated modular Neovim setup.
     │   ├── lazy.lua
     │   └── utils.lua
     ├── config               → see lua/config/README.md
+    │   ├── filetypes.lua
     │   ├── keymaps.lua
     │   ├── options.lua
     │   ├── plugins.lua
     │   └── tools.lua
     └── plugins               → see lua/plugins/README.md
         ├── lsp               language servers, completion, formatting, linting, treesitter
-        ├── editor             file explorer, fuzzy finder, editing QoL, git signs
-        └── ui                colorscheme, statusline
+        ├── editor            file explorer, fuzzy finder, editing QoL, git
+        └── ui                colorscheme, statusline, keymap hints
 ```
 
 `init.lua` sets the leader key, then loads `core.lazy` (plugin manager
-bootstrap), `config.options` (editor settings) and `config.keymaps`
-(keybindings), in that order.
+bootstrap), `config.options` (editor settings), `config.filetypes`
+(extra filetype detection) and `config.keymaps` (keybindings), in that
+order.
 
 ## Requirements
 
@@ -46,14 +48,18 @@ Required by lazy.nvim, Mason, Treesitter and Telescope's fzf-native build:
 | ripgrep | Telescope `live_grep` | `ripgrep` |
 | tree-sitter-cli | Building Treesitter parsers without a committed `parser.c`; install via your package manager, not npm | `tree-sitter-cli` or `cargo install --locked tree-sitter-cli` |
 | man-db, man-pages | `<leader>fm` (Telescope man pages) | `man-db man-pages` |
-| Node.js + npm | Most Mason packages: html, cssls, vtsls, vue_ls, emmet_language_server, tailwindcss, eslint_d, prettier, yamlls, jsonls, dockerls, bashls, basedpyright, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions), nvm, or your package manager |
-| Python3 + pip/pipx | `clang-format` (Mason package) | `python3 python3-pip pipx` |
+| Node.js + npm | Most Mason packages: html, cssls, vtsls, vue_ls, emmet_language_server, tailwindcss, eslint_d, prettier, yamlls, jsonls, bashls, ansiblels, basedpyright, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions), nvm, or your package manager |
+| Python3 + pip/pipx | `clang-format`, `ansible-lint` (Mason packages) | `python3 python3-pip pipx` |
+| Java (JDK 21+) | `jdtls` | package manager or [Adoptium](https://adoptium.net) |
 | Go toolchain | `gopls`, `gofumpt`; managed with `go install`, not Mason (see [tools.lua](./lua/config/tools.lua)) | official [Go tarball](https://go.dev/dl/) or package manager |
 | Rust toolchain (rustup) | `rust_analyzer`, `rustfmt`; managed with rustup, not Mason | [rustup.rs](https://rustup.rs) |
+| Ruby (rbenv/mise) | `ruby_lsp`; `gem install ruby-lsp` for the project's ruby, rubocop comes from the project's Gemfile | rbenv, mise or package manager (macOS system ruby is too old) |
 
-Optional: a [Nerd Font](https://www.nerdfonts.com/) installed in your
-*terminal* (not the container) for the icons used by lualine and
-nvim-web-devicons.
+Optional, only for the matching filetypes: `ansible` for ansiblels
+features beyond linting, `helm` for helm_ls template rendering.
+
+Optional: a [Nerd Font](https://www.nerdfonts.com/) set in the terminal
+for the icons used by lualine and nvim-web-devicons.
 
 ## Plugin Manager
 
@@ -80,7 +86,9 @@ covered by the [System dependencies](#system-dependencies) table above.
 
 If mason is disabled, language servers, linters and formatters can still be added
 in [tools.lua](./lua/config/tools.lua). [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-provides configurations. Blink.cmp handles completion and conform formatting.
+provides configurations. Blink.cmp handles completion and conform
+formatting. Format on save is off by default, see
+[lua/config/README.md](./lua/config/README.md#pluginslua).
 
 See [lua/config/README.md](./lua/config/README.md#toolslua) for the full
 list of currently configured languages.
@@ -90,14 +98,14 @@ list of currently configured languages.
 All custom keybindings live in a single file,
 [keymaps.lua](./lua/config/keymaps.lua). See
 [lua/config/README.md](./lua/config/README.md#keymapslua) for the full
-table. Plugin-internal default keymaps (e.g. blink.cmp's completion menu)
+table, or press `<leader>` and wait for which-key. Plugin-internal default keymaps (e.g. blink.cmp's completion menu)
 are not documented here. Check the plugin's own repo, linked from
 [lua/plugins/README.md](./lua/plugins/README.md).
 
 ## See also
 
-- [lua/config/README.md](./lua/config/README.md): options, keymaps, the
-  plugin toggle system and the per-language tooling table
+- [lua/config/README.md](./lua/config/README.md): options, filetypes,
+  keymaps, commands, the plugin toggle system and the tooling table
 - [lua/plugins/README.md](./lua/plugins/README.md): plugin catalog by
   category, with links to every upstream repo
 
