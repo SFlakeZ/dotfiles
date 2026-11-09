@@ -5,6 +5,7 @@ local M = {}
 -- Formatters:  https://github.com/stevearc/conform.nvim
 --
 -- 'lsp' is a list, some filetypes need several clients (e.g. vue)
+-- 'tools' are extra mason packages an lsp calls on its own (e.g. shellcheck)
 
 M.by_ft = {
   python = {
@@ -94,15 +95,53 @@ M.by_ft = {
   },
   dockerfile = {
     mason_install = true,
-    lsp = { "dockerls" },
+    lsp = { "docker_language_server" }, -- also covers compose files
+    linters = { "hadolint" },
+    formatters = {},
+  },
+  helm = {
+    mason_install = true,
+    lsp = { "helm_ls" },
+    linters = {},
+    formatters = {},
+  },
+  ansible = {
+    mason_install = true,
+    lsp = { "ansiblels" },
+    linters = {}, -- ansiblels runs ansible-lint
+    formatters = {},
+    tools = { "ansible-lint" },
+  },
+  jinja = {
+    mason_install = true,
+    lsp = { "jinja_lsp" },
+    linters = {},
+    formatters = {},
+  },
+  systemd = {
+    mason_install = true,
+    lsp = { "systemd_lsp" }, -- podman quadlets
     linters = {},
     formatters = {},
   },
   sh = {
     mason_install = true,
     lsp = { "bashls" },
-    linters = {},
+    linters = {}, -- bashls runs shellcheck
     formatters = { "shfmt" },
+    tools = { "shellcheck" },
+  },
+  markdown = {
+    mason_install = true,
+    lsp = { "marksman" },
+    linters = {},
+    formatters = { "prettier" },
+  },
+  ruby = {
+    mason_install = false, -- ruby-lsp and rubocop come from the project's bundle
+    lsp = { "ruby_lsp" },
+    linters = {}, -- rubocop via ruby_lsp
+    formatters = {}, -- rubocop via ruby_lsp (lsp_format = "fallback")
   },
   toml = {
     mason_install = true,
@@ -114,5 +153,7 @@ M.by_ft = {
 
 M.by_ft.cpp = M.by_ft.c
 M.by_ft.typescript = M.by_ft.javascript
+M.by_ft.javascriptreact = M.by_ft.javascript
+M.by_ft.typescriptreact = M.by_ft.javascript
 
 return M

@@ -41,6 +41,27 @@ return {
       })
     end
 
+    -- kubernetes schema for manifests in the usual folders, other files can
+    -- use a modeline: # yaml-language-server: $schema=<url>
+    vim.lsp.config("yamlls", {
+      settings = {
+        yaml = {
+          schemas = {
+            kubernetes = {
+              "k8s/**/*.yaml",
+              "k8s/**/*.yml",
+              "kubernetes/**/*.yaml",
+              "kubernetes/**/*.yml",
+              "manifests/**/*.yaml",
+              "manifests/**/*.yml",
+              "*.k8s.yaml",
+              "*.k8s.yml",
+            },
+          },
+        },
+      },
+    })
+
     -- clippy instead of cargo check
     vim.lsp.config("rust_analyzer", {
       settings = {

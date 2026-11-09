@@ -24,6 +24,7 @@ return {
       "yaml",
       "toml",
       "markdown",
+      "markdown_inline",
       "html",
       "css",
       "javascript",
@@ -35,7 +36,20 @@ return {
       "dockerfile",
       "go",
       "bash",
+      "ruby",
+      "embedded_template",
+      "helm",
+      "jinja",
+      "jinja_inline",
+      "regex",
+      "vimdoc",
+      "query",
+      "luadoc",
+      "diff",
       "gitcommit",
+      "git_rebase",
+      "git_config",
+      "gitignore",
     })
 
     -- the main branch does not start highlighting on its own

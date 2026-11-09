@@ -84,7 +84,7 @@ function M.mason_tools()
   local seen, result = {}, {}
   for _, cfg in pairs(tools_by_ft) do
     if cfg.mason_install then
-      for _, list in ipairs({ cfg.formatters or {}, cfg.linters or {} }) do
+      for _, list in ipairs({ cfg.formatters or {}, cfg.linters or {}, cfg.tools or {} }) do
         for _, tool in ipairs(list) do
           add_unique(result, seen, M.mason_pkg_aliases[tool] or tool)
         end

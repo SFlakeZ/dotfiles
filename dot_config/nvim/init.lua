@@ -7,6 +7,7 @@ require("core.lazy")
 
 -- Load general configuration
 require("config.options")
+require("config.filetypes")
 
 -- Load keymaps
 require("config.keymaps")
