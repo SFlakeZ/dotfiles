@@ -18,6 +18,7 @@ return {
 
   -- Utils
   autopairs = { enabled = true },
+  diffview = { enabled = true },
   gitsigns = { enabled = true },
   lazydev = { enabled = true },
   neo_tree = { enabled = true },

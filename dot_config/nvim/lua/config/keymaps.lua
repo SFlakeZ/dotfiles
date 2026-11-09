@@ -19,6 +19,13 @@ if utils.is_enabled("telescope") then
   vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep", silent = true })
   vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers", silent = true })
   vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags", silent = true })
+  vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Telescope grep word under cursor", silent = true })
+  vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Telescope recent files", silent = true })
+  vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Telescope resume last picker", silent = true })
+  vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Telescope diagnostics", silent = true })
+  vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope keymaps", silent = true })
+  vim.keymap.set("n", "<leader>fs", builtin.git_status, { desc = "Telescope git status", silent = true })
+  vim.keymap.set("n", "<leader>fc", builtin.git_bcommits, { desc = "Telescope buffer commits", silent = true })
 
   -- grr/gri/grt replace the neovim defaults, a plain gr would wait for timeoutlen
   vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Telescope go to word definition", silent = true })
@@ -47,6 +54,55 @@ else
   -- grr/gri/grt are neovim defaults
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
   vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
+end
+
+if utils.is_enabled("gitsigns") then
+  local gitsigns = require("gitsigns")
+
+  -- in diff mode ]c/[c keep their builtin meaning
+  vim.keymap.set("n", "]h", function()
+    if vim.wo.diff then
+      vim.cmd.normal({ "]c", bang = true })
+    else
+      gitsigns.nav_hunk("next")
+    end
+  end, { desc = "Next git hunk" })
+  vim.keymap.set("n", "[h", function()
+    if vim.wo.diff then
+      vim.cmd.normal({ "[c", bang = true })
+    else
+      gitsigns.nav_hunk("prev")
+    end
+  end, { desc = "Previous git hunk" })
+
+  vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { desc = "Stage/unstage hunk" })
+  vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Reset hunk" })
+  vim.keymap.set("v", "<leader>gs", function()
+    gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  end, { desc = "Stage/unstage selection" })
+  vim.keymap.set("v", "<leader>gr", function()
+    gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+  end, { desc = "Reset selection" })
+  vim.keymap.set("n", "<leader>gS", gitsigns.stage_buffer, { desc = "Stage buffer" })
+  vim.keymap.set("n", "<leader>gR", gitsigns.reset_buffer, { desc = "Reset buffer" })
+  vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })
+  vim.keymap.set("n", "<leader>gb", function()
+    gitsigns.blame_line({ full = true })
+  end, { desc = "Blame line" })
+  vim.keymap.set("n", "<leader>gB", gitsigns.blame, { desc = "Blame buffer" })
+  vim.keymap.set("n", "<leader>gd", gitsigns.diffthis, { desc = "Diff against index" })
+  vim.keymap.set("n", "<leader>gq", function()
+    gitsigns.setqflist("all")
+  end, { desc = "All hunks to quickfix" })
+  vim.keymap.set({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "Select git hunk" })
+  vim.keymap.set("n", "<leader>ub", gitsigns.toggle_current_line_blame, { desc = "Toggle line blame" })
+end
+
+if utils.is_enabled("diffview") then
+  vim.keymap.set("n", "<leader>gv", "<cmd>DiffviewToggle<CR>", { desc = "Toggle diffview" })
+  vim.keymap.set("n", "<leader>gh", "<cmd>DiffviewFileHistory %<CR>", { desc = "File history" })
+  vim.keymap.set("v", "<leader>gh", ":DiffviewFileHistory<CR>", { desc = "Selection history" })
+  vim.keymap.set("n", "<leader>gH", "<cmd>DiffviewFileHistory<CR>", { desc = "Branch history" })
 end
 
 -- Toggles
