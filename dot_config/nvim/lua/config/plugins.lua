@@ -15,6 +15,7 @@ return {
 
   -- UI
   lualine = { enabled = true },
+  which_key = { enabled = true },
 
   -- Utils
   autopairs = { enabled = true },
