@@ -26,6 +26,8 @@ return {
     enabled = is_enabled,
     opts = {
       ensure_installed = lsp_servers,
+      -- servers are enabled in lsp.lua from tools.lua, not everything installed
+      automatic_enable = false,
     },
   },
   {

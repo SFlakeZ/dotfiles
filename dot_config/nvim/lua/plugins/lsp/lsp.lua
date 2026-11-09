@@ -1,4 +1,6 @@
-local lsp_servers = require("core.utils").lsp_servers()
+local utils = require("core.utils")
+local lsp_servers = utils.lsp_servers()
+local mason_servers = utils.mason_lsp_servers()
 
 -- nvim-lspconfig: https://github.com/neovim/nvim-lspconfig
 return {
@@ -71,8 +73,17 @@ return {
       },
     })
 
+    -- servers not installed by mason (ruby_lsp, gopls, ...) are skipped when
+    -- missing, otherwise every matching buffer shows a spawn error.
+    -- Servers with a function as cmd need their binary listed here.
+    local executables = { ruby_lsp = "ruby-lsp" }
     for _, server in ipairs(lsp_servers) do
-      vim.lsp.enable(server)
+      local cmd = vim.lsp.config[server] and vim.lsp.config[server].cmd
+      local bin = executables[server] or (type(cmd) == "table" and cmd[1])
+      local missing = bin and vim.fn.executable(bin) == 0
+      if vim.tbl_contains(mason_servers, server) or not missing then
+        vim.lsp.enable(server)
+      end
     end
   end,
 }
