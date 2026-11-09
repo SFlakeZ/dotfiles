@@ -173,16 +173,36 @@ on-mode-changed = []
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#on-window-detected-callback
 [[on-window-detected]]
+    if.app-id = 'com.apple.FinalCutApp'
+    run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.mail'
+    run = 'layout floating'
+
+[[on-window-detected]]
     if.app-id = 'com.apple.Music'
     run = 'layout floating'
 
 [[on-window-detected]]
-    if.app-id = 'com.spotify.client'
+    if.app-id = 'com.apple.pixelmator'
+    run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Preview'
+    run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.QuickTimePlayerX'
     run = 'layout floating'
 
 [[on-window-detected]]
     if.app-id = 'com.hnc.Discord'
     run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+    if.app-id = 'com.spotify.client'
+    run = 'layout floating'
 
 [[on-window-detected]]
     if.app-id = 'ch.protonvpn.mac'
@@ -199,7 +219,4 @@ on-mode-changed = []
 [[on-window-detected]]
     if.app-id = 'com.valvesoftware.steam.helper'
     run = ['layout floating', 'move-node-to-workspace 3']
-
-# ghostty:  com.mitchellh.ghostty
-# Safari:   com.apple.Safari
 
