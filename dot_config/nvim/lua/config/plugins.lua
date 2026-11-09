@@ -3,10 +3,11 @@ return {
   blink_cmp = { enabled = true },
 
   -- Formatting
-  conform = { enabled = true },
+  -- format_on_save is off by default, toggle with :FormatToggle or <leader>uf
+  conform = { enabled = true, format_on_save = false },
 
   -- Linting
-  nvim_lint = { enabled = true },
+  nvim_lint = { enabled = true, lint_on_save = true },
 
   -- Syntax highlighting
   -- Requirements: tar, curl, a C compiler, tree-sitter-cli (apt/cargo — not npm)

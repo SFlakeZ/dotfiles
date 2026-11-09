@@ -49,20 +49,32 @@ else
   vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 end
 
-vim.keymap.set("n", "<leader>h", function()
+-- Toggles
+vim.keymap.set("n", "<leader>uh", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
 end, { desc = "Toggle inlay hints" })
 
 local virtual_text = vim.diagnostic.config().virtual_text
-vim.keymap.set("n", "<leader>d", function()
+vim.keymap.set("n", "<leader>ud", function()
   local enabled = vim.diagnostic.config().virtual_text ~= false
   vim.diagnostic.config({ virtual_text = not enabled and virtual_text or false })
 end, { desc = "Toggle inline diagnostics" })
+
+if utils.is_enabled("conform") then
+  vim.keymap.set("n", "<leader>uf", "<cmd>FormatToggle<CR>", { desc = "Toggle format on save" })
+  vim.keymap.set("n", "<leader>uF", "<cmd>FormatToggle!<CR>", { desc = "Toggle format on save (buffer)" })
+end
+
+if utils.is_enabled("nvim_lint") then
+  vim.keymap.set("n", "<leader>ul", "<cmd>LintToggle<CR>", { desc = "Toggle lint on save" })
+  vim.keymap.set("n", "<leader>cl", "<cmd>Lint<CR>", { desc = "Lint buffer" })
+end
 
 vim.keymap.set("n", "<leader>e", function()
   vim.diagnostic.open_float({ scope = "cursor" })
 end, { desc = "Show diagnostic float" })
 
+-- Code
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
 
 if utils.is_enabled("conform") then

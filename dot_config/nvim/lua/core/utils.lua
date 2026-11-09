@@ -9,6 +9,24 @@ function M.is_enabled(name)
   return plugin.enabled ~= false
 end
 
+-- Value of 'key' for 'name' in config/plugins.lua, 'default' if unset.
+function M.option(name, key, default)
+  local plugin = plugins[name]
+  if plugin == nil or plugin[key] == nil then
+    return default
+  end
+  return plugin[key]
+end
+
+-- Buffer setting wins over the global one (see :FormatToggle).
+function M.autoformat_enabled(bufnr)
+  local enabled = vim.b[bufnr or 0].autoformat
+  if enabled == nil then
+    enabled = vim.g.autoformat
+  end
+  return enabled == true
+end
+
 local tools_by_ft = require("config.tools").by_ft
 
 -- Appends 'value' to 'result' the first time it is seen, tracked via 'seen'.

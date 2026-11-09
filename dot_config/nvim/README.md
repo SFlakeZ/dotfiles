@@ -46,7 +46,7 @@ Required by lazy.nvim, Mason, Treesitter and Telescope's fzf-native build:
 | ripgrep | Telescope `live_grep` | `ripgrep` |
 | tree-sitter-cli | Building Treesitter parsers without a committed `parser.c`; install via your package manager, not npm | `tree-sitter-cli` or `cargo install --locked tree-sitter-cli` |
 | man-db, man-pages | `<leader>fm` (Telescope man pages) | `man-db man-pages` |
-| Node.js + npm | Most Mason packages: html, cssls, ts_ls, vue_ls, eslint_d, prettier, yamlls, jsonls, dockerls, bashls, basedpyright, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions), nvm, or your package manager |
+| Node.js + npm | Most Mason packages: html, cssls, vtsls, vue_ls, emmet_language_server, tailwindcss, eslint_d, prettier, yamlls, jsonls, dockerls, bashls, basedpyright, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions), nvm, or your package manager |
 | Python3 + pip/pipx | `clang-format` (Mason package) | `python3 python3-pip pipx` |
 | Go toolchain | `gopls`, `gofumpt`; managed with `go install`, not Mason (see [tools.lua](./lua/config/tools.lua)) | official [Go tarball](https://go.dev/dl/) or package manager |
 | Rust toolchain (rustup) | `rust_analyzer`, `rustfmt`; managed with rustup, not Mason | [rustup.rs](https://rustup.rs) |
