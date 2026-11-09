@@ -7,6 +7,8 @@ My dotfiles are managed with [chezmoi](https://github.com/twpayne/chezmoi)!
 - [git](https://git-scm.com) configuration
 - [nvim](./dot_config/nvim/README.md) configuration
 - [tmux](./dot_config/tmux/README.md) configuration
+- [aerospace](https://github.com/nikitabobko/AeroSpace) configuration (macOS only)
+- [zed](https://zed.dev) settings
 
 ### Structure:
 
@@ -14,13 +16,15 @@ My dotfiles are managed with [chezmoi](https://github.com/twpayne/chezmoi)!
 .
 ├── .chezmoiignore
 ├── dot_config
+│   ├── aerospace
 │   ├── git
 │   │   ├── aliases
 │   │   ├── config.tmpl
 │   │   ├── ignore
 │   │   └── message
 │   ├── nvim
-│   └── tmux
+│   ├── tmux
+│   └── zed
 └── README.md
 ```
 

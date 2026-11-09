@@ -19,9 +19,8 @@ line.
 - A [Nerd Font](https://www.nerdfonts.com/) installed in your *terminal* for
   the Catppuccin status line icons
 - On macOS, `pbcopy`/`pbpaste` on `$PATH` for `tmux-yank`
-- A UTF-8 locale (`LANG`/`LC_ALL`, e.g. `en_US.UTF-8`) — without one, glyph
-  rendering (particularly Nerd Font icons) can come out broken; seen in
-  practice on OpenBSD
+- A UTF-8 locale (`LANG`/`LC_ALL`, e.g. `en_US.UTF-8`), otherwise Nerd
+  Font icons can render broken (happened on OpenBSD)
 
 ## Plugin Manager
 
