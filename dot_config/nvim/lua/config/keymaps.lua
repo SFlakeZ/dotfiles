@@ -52,6 +52,16 @@ vim.keymap.set("n", "<leader>h", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }))
 end, { desc = "Toggle inlay hints" })
 
+local virtual_text = vim.diagnostic.config().virtual_text
+vim.keymap.set("n", "<leader>d", function()
+  local enabled = vim.diagnostic.config().virtual_text ~= false
+  vim.diagnostic.config({ virtual_text = not enabled and virtual_text or false })
+end, { desc = "Toggle inline diagnostics" })
+
+vim.keymap.set("n", "<leader>e", function()
+  vim.diagnostic.open_float({ scope = "cursor" })
+end, { desc = "Show diagnostic float" })
+
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
 
 if utils.is_enabled("conform") then

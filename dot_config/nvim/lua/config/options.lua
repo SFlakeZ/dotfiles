@@ -55,4 +55,10 @@ vim.diagnostic.config({
     },
   },
   float = { border = "rounded" },
+  jump = {
+    -- open the float after ]d/[d (see :h ]d-default)
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+    end,
+  },
 })
