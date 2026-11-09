@@ -11,6 +11,14 @@ if utils.is_enabled("neo_tree") then
   )
 end
 
+-- C-hjkl moves across nvim splits and tmux panes
+if utils.is_enabled("tmux_navigator") then
+  vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>", { desc = "Split/pane left" })
+  vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>", { desc = "Split/pane down" })
+  vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>", { desc = "Split/pane up" })
+  vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>", { desc = "Split/pane right" })
+end
+
 if utils.is_enabled("telescope") then
   local builtin = require("telescope.builtin")
 

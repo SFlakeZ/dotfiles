@@ -104,6 +104,7 @@ defaults.
 |---|---|
 | `<ESC>` | Clear search highlight |
 | `<leader>n` | Toggle neo-tree |
+| `<C-h/j/k/l>` | Move across nvim splits and tmux panes |
 
 Plugin-internal keymaps (blink.cmp menu, neo-tree, diffview panels) are
 documented in the plugins' own repos, linked from

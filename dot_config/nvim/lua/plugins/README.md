@@ -38,6 +38,7 @@ in a single file.
 | `autopairs.lua` | [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | Auto-closes brackets and quotes |
 | `gitsigns.lua` | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Hunk signs, staging, preview and blame |
 | `diffview.lua` | [diffview-plus.nvim](https://github.com/dlyongemallo/diffview-plus.nvim) | Review all changes, merge conflicts, file and branch history |
+| `tmux-navigator.lua` | [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) | `C-hjkl` across nvim splits and tmux panes |
 | `render-markdown.lua` | [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | In-buffer rendered markdown preview |
 
 ## ui

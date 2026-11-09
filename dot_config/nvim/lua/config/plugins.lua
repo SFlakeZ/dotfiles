@@ -24,6 +24,7 @@ return {
   lazydev = { enabled = true },
   neo_tree = { enabled = true },
   render_markdown = { enabled = true },
+  tmux_navigator = { enabled = true },
 
   -- Requirements: ripgrep; fzf-native needs a C compiler + make (no fzf binary needed)
   telescope = { enabled = true },
