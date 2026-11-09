@@ -24,7 +24,9 @@ local function collect_lsp_servers(filter)
   local seen, result = {}, {}
   for _, cfg in pairs(tools_by_ft) do
     if cfg.lsp and (not filter or filter(cfg)) then
-      add_unique(result, seen, cfg.lsp)
+      for _, server in ipairs(cfg.lsp) do
+        add_unique(result, seen, server)
+      end
     end
   end
   return result

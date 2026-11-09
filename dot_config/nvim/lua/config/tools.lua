@@ -3,91 +3,112 @@ local M = {}
 -- LSP-Servers: <...>
 -- Linters:     https://github.com/mfussenegger/nvim-lint
 -- Formatters:  https://github.com/stevearc/conform.nvim
+--
+-- 'lsp' is a list, some filetypes need several clients (e.g. vue)
 
 M.by_ft = {
   python = {
     mason_install = true,
-    lsp = "basedpyright", -- "ruff", "pyright"
+    lsp = { "basedpyright" }, -- "ruff", "pyright"
     linters = {}, -- provided by lsp
     formatters = { "ruff_format" },
   },
   perl = {
     mason_install = false,
-    lsp = "perlnavigator",
+    lsp = { "perlnavigator" },
     linters = {},
     formatters = {},
   },
   c = {
     mason_install = true,
-    lsp = "clangd",
+    lsp = { "clangd" },
     linters = {},
     formatters = { "clang-format" },
   },
   lua = {
     mason_install = true,
-    lsp = "lua_ls",
+    lsp = { "lua_ls" },
     linters = {},
     formatters = { "stylua" },
   },
   rust = {
     mason_install = false, -- managed with rustup
-    lsp = "rust_analyzer",
+    lsp = { "rust_analyzer" },
     linters = {},
     formatters = { "rustfmt" },
   },
   html = {
     mason_install = true,
-    lsp = "html",
+    lsp = { "html", "emmet_language_server", "tailwindcss" },
     linters = { "eslint_d" },
     formatters = { "prettier" },
   },
   css = {
     mason_install = true,
-    lsp = "cssls",
+    lsp = { "cssls", "emmet_language_server", "tailwindcss" },
     linters = { "eslint_d" },
     formatters = { "prettier" },
   },
   javascript = {
     mason_install = true,
-    lsp = "ts_ls",
+    lsp = { "vtsls" },
     linters = { "eslint_d" },
     formatters = { "prettier" },
   },
+  java = {
+    mason_install = true,
+    lsp = { "jdtls" },
+    linters = {}, -- provided by lsp
+    formatters = { "google-java-format" },
+  },
+  kotlin = {
+    mason_install = true,
+    lsp = { "kotlin_lsp" },
+    linters = {}, -- provided by lsp
+    formatters = { "ktlint" },
+  },
   vue = {
     mason_install = true,
-    lsp = "vue_ls",
+    -- vue_ls: template/style; vtsls: TypeScript (hybrid mode); emmet/tailwindcss: template completions
+    lsp = { "vue_ls", "vtsls", "emmet_language_server", "tailwindcss" },
     linters = { "eslint_d" },
     formatters = { "prettier" },
   },
   go = {
     mason_install = false, -- managed with go install
-    lsp = "gopls",
+    lsp = { "gopls" },
     linters = {},
     formatters = { "gofumpt" },
   },
   yaml = {
     mason_install = true,
-    lsp = "yamlls",
+    lsp = { "yamlls" },
     linters = {},
     formatters = { "prettier" },
   },
   json = {
     mason_install = true,
-    lsp = "jsonls",
+    lsp = { "jsonls" },
     linters = {},
     formatters = { "prettier" },
   },
   dockerfile = {
     mason_install = true,
-    lsp = "dockerls",
+    lsp = { "dockerls" },
     linters = {},
     formatters = {},
   },
   sh = {
     mason_install = true,
-    lsp = "bashls",
+    lsp = { "bashls" },
     linters = {},
     formatters = { "shfmt" },
+  },
+  toml = {
+    mason_install = true,
+    lsp = { "taplo" },
+    linters = {},
+    formatters = {}, -- taplo formats via LSP (conform lsp_format = "fallback")
   },
 }
 

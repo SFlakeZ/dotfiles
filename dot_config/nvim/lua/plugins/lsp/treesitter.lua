@@ -34,6 +34,8 @@ return {
       "typescript",
       "tsx",
       "vue",
+      "java",
+      "kotlin",
       "dockerfile",
       "go",
       "bash",

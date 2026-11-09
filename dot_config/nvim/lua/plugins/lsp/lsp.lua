@@ -16,6 +16,40 @@ return {
         end
       end,
     })
+
+    -- vue_ls only handles template/style, vtsls provides typescript in .vue
+    -- https://github.com/vuejs/language-tools/wiki/Neovim
+    local vue_language_server_path = vim.fn.stdpath("data")
+      .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+    if vim.uv.fs_stat(vue_language_server_path) then
+      vim.lsp.config("vtsls", {
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+        settings = {
+          vtsls = {
+            tsserver = {
+              globalPlugins = {
+                {
+                  name = "@vue/typescript-plugin",
+                  location = vue_language_server_path,
+                  languages = { "vue" },
+                  configNamespace = "typescript",
+                },
+              },
+            },
+          },
+        },
+      })
+    end
+
+    -- clippy instead of cargo check
+    vim.lsp.config("rust_analyzer", {
+      settings = {
+        ["rust-analyzer"] = {
+          check = { command = "clippy" },
+        },
+      },
+    })
+
     for _, server in ipairs(lsp_servers) do
       vim.lsp.enable(server)
     end
