@@ -1,4 +1,13 @@
-local is_enabled = require("core.utils").is_enabled("blink_cmp")
+local utils = require("core.utils")
+local is_enabled = utils.is_enabled("blink_cmp")
+
+local sources = { "lsp", "path", "snippets", "buffer" }
+local providers = {}
+if utils.is_enabled("lazydev") then
+  -- neovim lua api completion in config files, see lazydev.lua
+  table.insert(sources, 1, "lazydev")
+  providers.lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 }
+end
 
 -- blink.cmp: https://github.com/saghen/blink.cmp
 -- docs: https://cmp.saghen.dev/installation
@@ -39,13 +48,17 @@ return {
       nerd_font_variant = "mono",
     },
 
-    -- (Default) Only show the documentation popup when manually triggered
-    completion = { documentation = { auto_show = false } },
+    -- Show the documentation popup after a short delay
+    completion = { documentation = { auto_show = true, auto_show_delay_ms = 300 } },
+
+    -- Show function signatures while typing arguments (C-k to toggle)
+    signature = { enabled = true },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to 'opts_extended'
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      default = sources,
+      providers = providers,
     },
 
     snippets = { preset = "luasnip" },
