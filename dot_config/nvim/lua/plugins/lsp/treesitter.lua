@@ -1,15 +1,11 @@
+local is_enabled = require("core.utils").is_enabled("treesitter")
+
 -- Treesitter: https://github.com/nvim-treesitter/nvim-treesitter
 return {
   "nvim-treesitter/nvim-treesitter",
   lazy = false,
   build = ":TSUpdate",
-  opts = {
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = false,
-    },
-    indent = { enable = true },
-  },
+  enabled = is_enabled,
   config = function()
     require("nvim-treesitter").setup({
       -- Directory to install parsers and queries to
@@ -40,6 +36,16 @@ return {
       "go",
       "bash",
       "gitcommit",
+    })
+
+    -- the main branch does not start highlighting on its own
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        if not pcall(vim.treesitter.start, args.buf) then
+          return
+        end
+        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
     })
   end,
 }
