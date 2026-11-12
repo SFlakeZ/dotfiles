@@ -121,6 +121,17 @@ function M.mason_tools()
   return result
 end
 
+-- Unique treesitter parsers of the enabled languages.
+function M.treesitter_parsers()
+  local seen, result = {}, {}
+  for _, cfg in pairs(tools_by_ft) do
+    for _, parser in ipairs(cfg.parsers or {}) do
+      add_unique(result, seen, parser)
+    end
+  end
+  return result
+end
+
 -- Mason Aliases
 M.mason_pkg_aliases = {
   ruff_format = "ruff",
