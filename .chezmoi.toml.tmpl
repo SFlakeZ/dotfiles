@@ -1,0 +1,15 @@
+{{- /* Documentation: https://www.chezmoi.io/user-guide/setup/#use-a-template-for-your-config-file */ -}}
+{{- /* Values are asked once on 'chezmoi init' and stay local in ~/.config/chezmoi/chezmoi.toml */ -}}
+{{- $name := promptStringOnce . "git_user_name" "Git user name" -}}
+{{- $email := promptStringOnce . "git_user_email" "Git user email" -}}
+{{- $pack := promptChoiceOnce . "pack" "Pack" (list "minimal" "standard") "standard" -}}
+[data]
+    git_user_name = {{ $name | quote }}
+    git_user_email = {{ $email | quote }}
+    pack = {{ $pack | quote }}
+{{- if hasKey . "skip" }}
+    skip = {{ .skip | toToml }}
+{{- end }}
+{{- if hasKey . "nvim_languages" }}
+    nvim_languages = {{ .nvim_languages | toToml }}
+{{- end }}
