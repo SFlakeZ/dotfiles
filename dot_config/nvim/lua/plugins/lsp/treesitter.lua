@@ -13,7 +13,12 @@ return {
       -- (prepend to 'runtimepath' to have priority)
       install_dir = vim.fn.stdpath("data") .. "/site",
     })
-    require("nvim-treesitter").install(utils.treesitter_parsers())
+    local install = require("nvim-treesitter").install(utils.treesitter_parsers())
+    -- headless (no UI, e.g. a container build) waits, so 'nvim --headless +qa'
+    -- does not quit before the parsers are built
+    if #vim.api.nvim_list_uis() == 0 then
+      install:wait(600000)
+    end
 
     -- the main branch does not start highlighting on its own
     vim.api.nvim_create_autocmd("FileType", {

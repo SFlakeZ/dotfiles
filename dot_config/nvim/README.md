@@ -85,6 +85,14 @@ Language servers, linters and formatters can be installed with:
 - [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim)
 - [mason-tool-installer.nvim](https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim)
 
+For a headless bootstrap (e.g. a container build) the treesitter parsers are
+installed on start and `:MasonToolsInstallSync` installs all Mason packages:
+
+```sh
+nvim --headless "+Lazy! restore" +qa
+nvim --headless "+MasonToolsInstallSync" +qa
+```
+
 Mason's own requirements (git, curl/wget, unzip, tar/gtar, gzip) are
 covered by the [System dependencies](#system-dependencies) table above.
 

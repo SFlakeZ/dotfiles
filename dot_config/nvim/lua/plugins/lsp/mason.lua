@@ -25,8 +25,8 @@ return {
     "mason-org/mason-lspconfig.nvim",
     enabled = is_enabled,
     opts = {
-      ensure_installed = lsp_servers,
-      -- servers are enabled in lsp.lua from tools.lua, not everything installed
+      -- servers are installed by mason-tool-installer and enabled in lsp.lua
+      -- from tools.lua, not everything installed
       automatic_enable = false,
     },
   },
@@ -34,8 +34,10 @@ return {
     -- mason-tool-installer: https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     enabled = is_enabled,
+    -- lsp servers by their lspconfig names (mason-lspconfig integration), so
+    -- :MasonToolsInstallSync installs everything, e.g. in a headless bootstrap
     opts = {
-      ensure_installed = tools,
+      ensure_installed = vim.list_extend(vim.list_extend({}, lsp_servers), tools),
     },
   },
 }
