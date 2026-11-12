@@ -1,4 +1,8 @@
 return {
+  -- Plugin manager
+  -- update_notify is off by default, updates are still listed in :Lazy
+  lazy = { update_notify = false },
+
   -- Completion
   blink_cmp = { enabled = true },
 

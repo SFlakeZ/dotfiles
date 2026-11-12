@@ -131,6 +131,7 @@ Some entries carry options, read via `require("core.utils").option()`:
 
 | Option | Default | Effect |
 |---|---|---|
+| `lazy.update_notify` | `false` | Notify about plugin updates on start. Off because with many plugins there is one almost daily, `:Lazy` still lists them |
 | `conform.format_on_save` | `false` | Format on save. Off because projects without a shared formatter end up with unrelated diffs |
 | `nvim_lint.lint_on_save` | `true` | Run linters after saving |
 
