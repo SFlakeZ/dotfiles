@@ -27,7 +27,34 @@ function M.autoformat_enabled(bufnr)
   return enabled == true
 end
 
-local tools_by_ft = require("config.tools").by_ft
+-- Only languages listed in config/languages.lua are set up, aliases like cpp
+-- share the table of their language and follow it.
+local function enabled_tools_by_ft()
+  local by_ft = require("config.tools").by_ft
+  local ok, languages = pcall(require, "config.languages")
+  if not ok then
+    languages = {}
+  end
+
+  local enabled = {}
+  for _, language in ipairs(languages) do
+    if by_ft[language] then
+      enabled[by_ft[language]] = true
+    else
+      vim.notify("Unknown language in config/languages.lua: " .. language, vim.log.levels.WARN)
+    end
+  end
+
+  local result = {}
+  for ft, cfg in pairs(by_ft) do
+    if enabled[cfg] then
+      result[ft] = cfg
+    end
+  end
+  return result
+end
+
+local tools_by_ft = enabled_tools_by_ft()
 
 -- Appends 'value' to 'result' the first time it is seen, tracked via 'seen'.
 local function add_unique(result, seen, value)
