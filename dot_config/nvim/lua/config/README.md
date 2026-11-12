@@ -140,33 +140,35 @@ Per-language tooling, consumed by `lsp.lua`, `formatting.lua`,
 
 - `lsp` is a list, a filetype can have several clients (e.g. `vue`)
 - `tools` are extra mason packages an LSP calls itself (e.g. shellcheck)
-- `mason_install = false` means the tools are installed some other way
+- `install = "mason"` lets Mason install the tools, `install = "system"` expects
+  them from a package manager, rustup, go install, ...; LSP, linters and
+  formatters are configured either way, missing LSP binaries are skipped
 
-| Filetype | LSP | Linters | Formatters | Mason |
+| Filetype | LSP | Linters | Formatters | Install |
 |---|---|---|---|---|
-| python | basedpyright | - | ruff_format | yes |
-| lua | lua_ls | - | stylua | yes |
-| perl | perlnavigator | - | - | no |
-| rust | rust_analyzer (clippy) | - | rustfmt | no (rustup) |
-| go | gopls | - | gofumpt | no (go install) |
-| ruby | ruby_lsp | rubocop via LSP | rubocop via LSP | no (bundle) |
-| c, cpp | clangd | - | clang-format | yes |
-| java | jdtls | - | google-java-format | yes |
-| kotlin | kotlin_lsp | - | ktlint | yes |
-| html | html, emmet_language_server, tailwindcss | eslint_d | prettier | yes |
-| css | cssls, emmet_language_server, tailwindcss | eslint_d | prettier | yes |
-| javascript, typescript, jsx, tsx | vtsls | eslint_d | prettier | yes |
-| vue | vue_ls, vtsls, emmet_language_server, tailwindcss | eslint_d | prettier | yes |
-| yaml | yamlls (kubernetes schema) | - | prettier | yes |
-| json | jsonls | - | prettier | yes |
-| toml | taplo | - | taplo via LSP | yes |
-| markdown | marksman | - | prettier | yes |
-| sh | bashls (+ shellcheck) | - | shfmt | yes |
-| dockerfile, compose | docker_language_server | hadolint | - | yes |
-| helm | helm_ls | - | - | yes |
-| ansible | ansiblels (+ ansible-lint) | - | - | yes |
-| jinja | jinja_lsp | - | - | yes |
-| systemd (quadlets) | systemd_lsp | - | - | yes |
+| python | basedpyright | - | ruff_format | mason |
+| lua | lua_ls | - | stylua | mason |
+| perl | perlnavigator | - | - | system |
+| rust | rust_analyzer (clippy) | - | rustfmt | system (rustup) |
+| go | gopls | - | gofumpt | system (go install) |
+| ruby | ruby_lsp | rubocop via LSP | rubocop via LSP | system (bundle) |
+| c, cpp | clangd | - | clang-format | mason |
+| java | jdtls | - | google-java-format | mason |
+| kotlin | kotlin_lsp | - | ktlint | mason |
+| html | html, emmet_language_server, tailwindcss | eslint_d | prettier | mason |
+| css | cssls, emmet_language_server, tailwindcss | eslint_d | prettier | mason |
+| javascript, typescript, jsx, tsx | vtsls | eslint_d | prettier | mason |
+| vue | vue_ls, vtsls, emmet_language_server, tailwindcss | eslint_d | prettier | mason |
+| yaml | yamlls (kubernetes schema) | - | prettier | mason |
+| json | jsonls | - | prettier | mason |
+| toml | taplo | - | taplo via LSP | mason |
+| markdown | marksman | - | prettier | mason |
+| sh | bashls (+ shellcheck) | - | shfmt | mason |
+| dockerfile, compose | docker_language_server | hadolint | - | mason |
+| helm | helm_ls | - | - | mason |
+| ansible | ansiblels (+ ansible-lint) | - | - | mason |
+| jinja | jinja_lsp | - | - | mason |
+| systemd (quadlets) | systemd_lsp | - | - | mason |
 
 Notes:
 
