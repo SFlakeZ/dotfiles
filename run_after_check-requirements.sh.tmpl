@@ -1,0 +1,21 @@
+{{- /* Renders empty (and is not run) unless something is missing */ -}}
+{{- $skipped := includeTemplate "skipped-components" . | fromJson -}}
+{{- $warnings := list -}}
+{{- range $name, $reason := $skipped -}}
+{{-   if hasPrefix "missing " $reason -}}
+{{-     $warnings = append $warnings (printf "%s skipped: %s not found" $name (trimPrefix "missing " $reason)) -}}
+{{-   end -}}
+{{- end -}}
+{{- if not (hasKey $skipped "nvim") -}}
+{{-   range list "git" "curl" "unzip" "make" "cc" "rg" -}}
+{{-     if not (lookPath .) -}}
+{{-       $warnings = append $warnings (printf "nvim: %s not found, see ~/.config/nvim/README.md" .) -}}
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{- if $warnings -}}
+#!/bin/sh
+{{- range $warnings }}
+echo {{ printf "warning: %s" . | quote }} >&2
+{{- end }}
+{{ end -}}
