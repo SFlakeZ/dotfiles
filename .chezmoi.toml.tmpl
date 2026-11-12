@@ -7,6 +7,9 @@
     git_user_name = {{ $name | quote }}
     git_user_email = {{ $email | quote }}
     pack = {{ $pack | quote }}
+{{- if hasKey . "extra" }}
+    extra = {{ .extra | toToml }}
+{{- end }}
 {{- if hasKey . "skip" }}
     skip = {{ .skip | toToml }}
 {{- end }}

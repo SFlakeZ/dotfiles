@@ -1,6 +1,6 @@
 {{- /* JSON object: component -> reason it is not applied */ -}}
 {{- $pack := index . "pack" | default "standard" -}}
-{{- $enabled := (index .packs $pack).components -}}
+{{- $enabled := concat (index .packs $pack).components (index . "extra" | default list) -}}
 {{- $skip := index . "skip" | default list -}}
 {{- $os := .chezmoi.os -}}
 {{- $result := dict -}}
