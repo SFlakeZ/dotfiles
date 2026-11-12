@@ -1,8 +1,9 @@
 # Documentation: https://www.chezmoi.io/reference/special-files/chezmoiignore/
+# Patterns match target paths (.config/...), not source paths (dot_config/...)
 README.md
 
 # mac specific
 {{- if ne .chezmoi.os "darwin" }}
-dot_config/aerospace
+.config/aerospace
+.config/aerospace/**
 {{- end }}
-
