@@ -12,12 +12,14 @@
 {{-   else if and (hasKey $c "os") (not (has $os $c.os)) -}}
 {{-     $_ := set $result $name (printf "not on %s" $os) -}}
 {{-   else -}}
+{{-     $missing := list -}}
 {{-     range $c.requires -}}
 {{-       $found := false -}}
 {{-       range splitList "|" . -}}{{ if lookPath . }}{{ $found = true }}{{ end }}{{ end -}}
-{{-       if and (not $found) (not (hasKey $result $name)) -}}
-{{-         $_ := set $result $name (printf "missing %s" (replace "|" " or " .)) -}}
-{{-       end -}}
+{{-       if not $found -}}{{ $missing = append $missing (replace "|" " or " .) }}{{ end -}}
+{{-     end -}}
+{{-     if $missing -}}
+{{-       $_ := set $result $name (printf "missing %s" (join ", " $missing)) -}}
 {{-     end -}}
 {{-   end -}}
 {{- end -}}
