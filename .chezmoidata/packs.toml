@@ -1,0 +1,35 @@
+# Packs select which components and nvim languages a machine gets.
+# The pack is chosen on 'chezmoi init', see README.md
+
+[packs.minimal]
+components = ["git", "tmux", "nvim"]
+nvim_languages = []
+
+[packs.standard]
+components = ["git", "tmux", "nvim", "zed", "aerospace"]
+nvim_languages = ["lua"]
+
+# A component is applied when it is in the pack, not listed in 'skip',
+# runs on one of 'os' (if set) and every 'requires' entry is on PATH.
+# "a|b" means either a or b.
+
+[components.git]
+paths = [".config/git"]
+requires = ["git"]
+
+[components.tmux]
+paths = [".config/tmux"]
+requires = ["tmux"]
+
+[components.nvim]
+paths = [".config/nvim"]
+requires = ["nvim", "tree-sitter"]
+
+[components.zed]
+paths = [".config/zed"]
+requires = ["zed|zeditor"]
+
+[components.aerospace]
+paths = [".config/aerospace"]
+os = ["darwin"]
+requires = ["aerospace"]

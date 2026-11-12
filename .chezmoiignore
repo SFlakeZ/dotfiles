@@ -2,8 +2,11 @@
 # Patterns match target paths (.config/...), not source paths (dot_config/...)
 README.md
 
-# mac specific
-{{- if ne .chezmoi.os "darwin" }}
-.config/aerospace
-.config/aerospace/**
+# components not applied on this machine, see .chezmoidata/packs.toml
+{{- range $name, $reason := includeTemplate "skipped-components" . | fromJson }}
+# {{ $name }}: {{ $reason }}
+{{- range (index $.components $name).paths }}
+{{ . }}
+{{ . }}/**
+{{- end }}
 {{- end }}

@@ -1,0 +1,24 @@
+{{- /* JSON object: component -> reason it is not applied */ -}}
+{{- $pack := index . "pack" | default "standard" -}}
+{{- $enabled := (index .packs $pack).components -}}
+{{- $skip := index . "skip" | default list -}}
+{{- $os := .chezmoi.os -}}
+{{- $result := dict -}}
+{{- range $name, $c := .components -}}
+{{-   if not (has $name $enabled) -}}
+{{-     $_ := set $result $name (printf "not in pack %s" $pack) -}}
+{{-   else if has $name $skip -}}
+{{-     $_ := set $result $name "listed in skip" -}}
+{{-   else if and (hasKey $c "os") (not (has $os $c.os)) -}}
+{{-     $_ := set $result $name (printf "not on %s" $os) -}}
+{{-   else -}}
+{{-     range $c.requires -}}
+{{-       $found := false -}}
+{{-       range splitList "|" . -}}{{ if lookPath . }}{{ $found = true }}{{ end }}{{ end -}}
+{{-       if and (not $found) (not (hasKey $result $name)) -}}
+{{-         $_ := set $result $name (printf "missing %s" (replace "|" " or " .)) -}}
+{{-       end -}}
+{{-     end -}}
+{{-   end -}}
+{{- end -}}
+{{- $result | toJson -}}
