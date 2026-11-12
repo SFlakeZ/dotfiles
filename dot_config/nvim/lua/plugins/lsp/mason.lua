@@ -1,6 +1,7 @@
 local is_enabled = require("core.utils").is_enabled("mason")
 local lsp_servers = require("core.utils").mason_lsp_servers()
 local tools = require("core.utils").mason_tools()
+local ensure_installed = vim.list_extend(vim.list_extend({}, lsp_servers), tools)
 
 return {
   {
@@ -33,11 +34,13 @@ return {
   {
     -- mason-tool-installer: https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    enabled = is_enabled,
+    -- :MasonToolsInstallSync never returns on an empty list, so the plugin is
+    -- only loaded when there is something to install
+    enabled = is_enabled and #ensure_installed > 0,
     -- lsp servers by their lspconfig names (mason-lspconfig integration), so
     -- :MasonToolsInstallSync installs everything, e.g. in a headless bootstrap
     opts = {
-      ensure_installed = vim.list_extend(vim.list_extend({}, lsp_servers), tools),
+      ensure_installed = ensure_installed,
     },
   },
 }

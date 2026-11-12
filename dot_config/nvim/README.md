@@ -90,8 +90,10 @@ installed on start and `:MasonToolsInstallSync` installs all Mason packages:
 
 ```sh
 nvim --headless "+Lazy! restore" +qa
-nvim --headless "+MasonToolsInstallSync" +qa
+nvim --headless "+silent! MasonToolsInstallSync" +qa
 ```
+
+`silent!` because the command does not exist when no language uses Mason.
 
 Mason's own requirements (git, curl/wget, unzip, tar/gtar, gzip) are
 covered by the [System dependencies](#system-dependencies) table above.
