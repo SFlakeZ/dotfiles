@@ -42,6 +42,9 @@ Neovim >= 0.12.
 
 Required by lazy.nvim, Mason, Treesitter and Telescope's fzf-native build:
 
+Only the enabled languages (see [Language Tooling](#language-tooling)) need
+their runtimes: nothing beyond the first rows for the default `lua`.
+
 | Tool | Needed for | Package(s) |
 |---|---|---|
 | git, curl, unzip, tar, gzip | lazy.nvim bootstrap, Mason & Treesitter downloads (also mason.nvim's own requirements) | `git curl unzip tar gzip` |
@@ -49,8 +52,8 @@ Required by lazy.nvim, Mason, Treesitter and Telescope's fzf-native build:
 | ripgrep | Telescope `live_grep` | `ripgrep` |
 | tree-sitter-cli | Building Treesitter parsers without a committed `parser.c`; install via your package manager, not npm | `tree-sitter-cli` or `cargo install --locked tree-sitter-cli` |
 | man-db, man-pages | `<leader>fm` (Telescope man pages) | `man-db man-pages` |
-| Node.js + npm | Most Mason packages: html, cssls, vtsls, vue_ls, emmet_language_server, tailwindcss, eslint_d, prettier, yamlls, jsonls, bashls, ansiblels, basedpyright, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions), nvm, or your package manager |
-| Python3 + pip/pipx | `clang-format`, `ansible-lint` (Mason packages) | `python3 python3-pip pipx` |
+| Node.js + npm | Most Mason packages: html, cssls, vtsls, vue_ls, emmet_language_server, tailwindcss, eslint_d, prettier, yamlls, jsonls, bashls, ansiblels, perlnavigator | via [NodeSource](https://github.com/nodesource/distributions), nvm, or your package manager |
+| Python3 + venv | Mason's pip packages: `basedpyright`, `clang-format`, `ansible-lint`; Debian/Ubuntu need `python3-venv` separately, otherwise the install fails with `spawn: python3 failed` | `python3 python3-venv` |
 | Java (JDK 21+) | `jdtls` | package manager or [Adoptium](https://adoptium.net) |
 | Go toolchain | `gopls`, `gofumpt`; managed with `go install`, not Mason (see [tools.lua](./lua/config/tools.lua)) | official [Go tarball](https://go.dev/dl/) or package manager |
 | Rust toolchain (rustup) | `rust_analyzer`, `rustfmt`; managed with rustup, not Mason | [rustup.rs](https://rustup.rs) |
