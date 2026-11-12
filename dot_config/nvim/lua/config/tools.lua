@@ -34,7 +34,7 @@ M.by_ft = {
   },
   lua = {
     install = "mason",
-    parsers = {}, -- base parsers in treesitter.lua
+    parsers = {}, -- see M.base_parsers
     lsp = { "lua_ls" },
     linters = {},
     formatters = { "stylua" },
@@ -156,7 +156,7 @@ M.by_ft = {
   },
   markdown = {
     install = "mason",
-    parsers = {}, -- base parsers in treesitter.lua
+    parsers = {}, -- see M.base_parsers
     lsp = { "marksman" },
     linters = {},
     formatters = { "prettier" },
@@ -175,6 +175,23 @@ M.by_ft = {
     linters = {},
     formatters = {}, -- taplo formats via LSP (conform lsp_format = "fallback")
   },
+}
+
+-- Treesitter parsers the config uses everywhere (help, queries, git, markdown
+-- hover), installed regardless of the enabled languages
+M.base_parsers = {
+  "lua",
+  "luadoc",
+  "vimdoc",
+  "query",
+  "regex",
+  "markdown",
+  "markdown_inline",
+  "diff",
+  "gitcommit",
+  "git_rebase",
+  "git_config",
+  "gitignore",
 }
 
 M.by_ft.cpp = M.by_ft.c

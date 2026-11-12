@@ -121,9 +121,12 @@ function M.mason_tools()
   return result
 end
 
--- Unique treesitter parsers of the enabled languages.
+-- Unique treesitter parsers: base parsers plus those of the enabled languages.
 function M.treesitter_parsers()
   local seen, result = {}, {}
+  for _, parser in ipairs(require("config.tools").base_parsers) do
+    add_unique(result, seen, parser)
+  end
   for _, cfg in pairs(tools_by_ft) do
     for _, parser in ipairs(cfg.parsers or {}) do
       add_unique(result, seen, parser)

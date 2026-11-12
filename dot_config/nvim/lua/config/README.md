@@ -156,7 +156,7 @@ Then `chezmoi apply`. Use the keys from the table below (`c` also covers
 - `lsp` is a list, a filetype can have several clients (e.g. `vue`)
 - `tools` are extra mason packages an LSP calls itself (e.g. shellcheck)
 - `parsers` are the Treesitter parsers of the language (`sh` → `bash`); lua,
-  vimdoc, markdown, git and a few more are always installed (`treesitter.lua`)
+  vimdoc, markdown, git and a few more are always installed (`M.base_parsers`)
 - `install = "mason"` lets Mason install the tools, `install = "system"` expects
   them from a package manager, rustup, go install, ...; LSP, linters and
   formatters are configured either way, missing LSP binaries are skipped
